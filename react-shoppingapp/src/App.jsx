@@ -8,8 +8,8 @@ import HomePage from "./components/HomePage"
 function App() {
   return (
     <>
-      <LandingPage/>
-     {/* <HomePage/> */}
+      {/* <LandingPage/> */}
+     <HomePage/>
     </>
   )
 }

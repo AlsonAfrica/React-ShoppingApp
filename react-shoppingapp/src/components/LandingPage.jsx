@@ -1,6 +1,6 @@
 import React from "react";
 import "../components/styles/LandingPage.css"
-import Navbar from "./styles/Navbar";
+import Navbar from "./Navbar";
 import HeroPhoto from "./img-frame";
 import HeroImage from '../assets/Images/Hero.jpg';
 import HeroImage2 from '../assets/Images/Hero2.jpg'
