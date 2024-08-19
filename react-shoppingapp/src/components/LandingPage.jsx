@@ -8,9 +8,13 @@ import LandingCards from "./LandingPageCards";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faInstagram, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faInfoCircle, faFileContract } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from "react-redux";
+import { showPopup } from "../store/popupSlice";
+import PopupForm from "./HomeForm";
 const LandingPage = () => {
-    return ( 
+    const dispatch = useDispatch();
  
+    return ( 
     <div className="wrapper">
         <div><Navbar/></div> 
         <div className="Hero">
@@ -19,7 +23,7 @@ const LandingPage = () => {
                  <h1>Never Forget a Grocery item Again</h1>
                  <p>ShopList is the ultimate shopping companion, keeping your <br/> grocery list synced across all your devices for easy access<br/> anytime, anywhere.</p>
                  <div className="hero-buttons">
-                    <button className="get-started">Get Started</button>
+                    <button className="get-started" onClick={() =>dispatch(showPopup())}>Get Started</button>
                     <button className="learn-more">Learn More</button>
                  </div>
                 </div>
@@ -80,6 +84,7 @@ const LandingPage = () => {
         </footer>
 
         </div>
+        <PopupForm/>
     </div>
     
     );
