@@ -122,6 +122,24 @@ title{
     }
   } */
 
+  /* styling list-container */
+  .list-container {
+    margin-top: 20px;
+  }
+  
+  .list-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  
+  .list-item p {
+    margin: 5px 0;
+  }
+  
+
 
 @media only screen and (max-width: 500px) {
     .lists{
