@@ -35,14 +35,14 @@
     height: 100vh;
     margin-top:10px;
     background-color: #F4989C;
-    display: flex;
+    /* display: flex; */
   
 }
 /* child of lists */
-.my-shopping-lists{
+/* .my-shopping-lists{
     display:flex;
     text-align: center;
-    /* background-color: rgb(7, 101, 101); */
+    background-color: rgb(7, 101, 101);
     width:37.5%;
     height: 100%;
     flex-direction: column;
@@ -63,9 +63,9 @@
     border-radius: 8px;
 }
 /* child of lists */
-.shared-lists{
+/* .shared-lists{
     width:37.5%;
-    /* background-color: rgb(127, 82, 24); */
+    background-color: rgb(127, 82, 24);
     height: 100%;
     
 }
@@ -106,12 +106,11 @@
     background-color: transparent;
     border-radius: 10px;
     cursor: crosshair;
-    /* border-radius: 50%; */
-    /* box-shadow: 2px 2px 5px black; */
+
 }
 title{
     background-color: #F4989C;
-}
+}  */
 
 /* @media only screen and (min-width: 1024px) {
     .floating-btn{
@@ -123,25 +122,20 @@ title{
   } */
 
   /* styling list-container */
-  .list-container {
-    margin-top: 20px;
-  }
   
-  .list-item {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-  }
   
-  .list-item p {
-    margin: 5px 0;
-  }
+
+  /* syles */
+
+  
+  
+  
+
+  
   
 
 
-@media only screen and (max-width: 500px) {
+/* @media only screen and (max-width: 500px) {
     .lists{
        flex-direction: column;
     }
@@ -159,5 +153,5 @@ title{
     .sent-list-container{
        padding-left: 150px;
     }
-  }
+  } */
 

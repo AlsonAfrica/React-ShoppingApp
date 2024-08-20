@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -12,6 +13,7 @@ import Box from '@mui/material/Box';
 
 export default function NavbarHome() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,6 +21,11 @@ export default function NavbarHome() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    // Perform any additional logout logic here, such as clearing tokens or user data
+    navigate('/'); // Navigate to the homepage
   };
 
   return (
@@ -59,7 +66,7 @@ export default function NavbarHome() {
             <MenuItem onClick={handleClose}>
               <SettingsIcon fontSize="small" /> Settings
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleLogout}>
               <LogoutIcon fontSize="small" /> Logout
             </MenuItem>
           </Menu>

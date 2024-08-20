@@ -45,7 +45,7 @@ const PopupFormSide = styled('div')({
   padding: '20px',
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   borderRadius: '8px',
-  background: 'linear-gradient(90deg, rgb(10, 158, 169) 0%, #F4989C 35%, rgb(0, 217, 255) 100%)',
+  backgroundColor:'#CADCD7',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -248,7 +248,7 @@ const PopupForm = () => {
               position: 'absolute',
               top: '10px',
               right: '10px',
-              color: 'pink',
+              color: 'black',
             }}
           >
             <Close />

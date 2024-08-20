@@ -11,6 +11,8 @@ import { faInfoCircle, faFileContract } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from "react-redux";
 import { showPopup } from "../store/popupSlice";
 import PopupForm from "./HomeForm";
+import { Link } from 'react-router-dom';
+
 const LandingPage = () => {
     const dispatch = useDispatch();
  
@@ -30,12 +32,12 @@ const LandingPage = () => {
                 <div className="hero-img">  <img src={HeroImage} alt="Hero"  /></div>
             </div>
         </div>
-        <div className="key-features">
+        <div className="key-features" id="Key-Features">
          <span>Key Features</span>
          <h1>Simplify Your Grocery Shopping</h1>
          <p>ShopList is designed to make your grocery shopping effortless, with features that save you time and keep you <br/> organized.</p>
         </div>
-        <div className="details">
+        <div className="details" id="Details">
             <div className="features">
               <div className="real-time easy list mobile-acc">
                 <h4>Real-Time Syncing</h4>

@@ -3,8 +3,8 @@
     {
       "username": "Jane",
       "email": "nhlakaniphoradebe337@gmail.com",
-      "Password": 123,
-      "Confirm Password": 123
+      "password": "123",
+      "confirmPassword": "123"
     },
     {
       "id": "5e40",
@@ -17,6 +17,142 @@
       "username": "Neo",
       "email": "Neo@gmail.com",
       "password": "123"
+    },
+    {
+      "id": 1724153314227,
+      "itemName": "12",
+      "quantity": 1,
+      "notes": "123",
+      "containerId": 1
+    },
+    {
+      "id": 1724153373124,
+      "itemName": "Mango",
+      "quantity": 4,
+      "notes": "Please Buy",
+      "containerId": 1
+    }
+  ],
+  "items": [
+    {
+      "id": "1a2b",
+      "name": "Apples",
+      "quantity": 5,
+      "notes": "Green apples"
+    },
+    {
+      "id": "2c3d",
+      "name": "Milk",
+      "quantity": 2,
+      "notes": "2% fat"
+    },
+    {
+      "id": "3e4f",
+      "name": "Bread",
+      "quantity": 1,
+      "notes": "Whole grain"
+    },
+    {
+      "id": "4g5h",
+      "name": "Eggs",
+      "quantity": 12,
+      "notes": "Free-range"
+    },
+    {
+      "id": "5i6j",
+      "name": "Butter",
+      "quantity": 1,
+      "notes": "Unsalted"
+    },
+    {
+      "id": "ff2e",
+      "itemName": "Car",
+      "quantity": "3",
+      "notes": "buy"
+    },
+    {
+      "id": "34d3",
+      "itemName": "Car",
+      "quantity": "3",
+      "notes": "123"
+    },
+    {
+      "id": "0492",
+      "itemName": "Car",
+      "quantity": "3",
+      "notes": "123"
+    },
+    {
+      "id": "966a",
+      "itemName": "Car",
+      "quantity": "3",
+      "notes": "123"
+    },
+    {
+      "id": "a3ff",
+      "itemName": "2",
+      "quantity": "3",
+      "notes": "123"
+    },
+    {
+      "id": "aace",
+      "itemName": "Car",
+      "quantity": 1,
+      "notes": "123"
+    },
+    {
+      "id": "52ae",
+      "itemName": "Car",
+      "quantity": "2",
+      "notes": "123"
+    },
+    {
+      "id": "9a33",
+      "itemName": "Car",
+      "quantity": "3",
+      "notes": "123"
+    },
+    {
+      "id": 1724154258138,
+      "itemName": "Car",
+      "quantity": 3,
+      "notes": "123",
+      "containerId": 1
+    },
+    {
+      "id": 1724154289018,
+      "itemName": "car",
+      "quantity": 4,
+      "notes": "car",
+      "containerId": 3
+    },
+    {
+      "id": 1724154330810,
+      "itemName": "apple",
+      "quantity": 3,
+      "notes": "buy more",
+      "containerId": 4
+    },
+    {
+      "id": 1724154455498,
+      "itemName": "banana",
+      "quantity": 5,
+      "notes": "Buy less",
+      "containerId": 3
+    },
+    {
+      "id": 1724154835025,
+      "itemName": "coke",
+      "quantity": 1,
+      "notes": "77",
+      "containerId": 4
+    },
+    {
+      "id": 1724154873098,
+      "itemName": "mango",
+      "quantity": 1,
+      "notes": "22",
+      "containerId": 1
     }
   ]
 }
