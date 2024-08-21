@@ -1,16 +1,25 @@
-// src/components/CategoryContainer.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchItems, addItem, updateItem, deleteItem } from '../store/itemsSlice';
 import { Card, CardContent, Typography, IconButton, TextField, Button, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { Delete, Add, Edit, Share, Favorite, FavoriteBorder } from '@mui/icons-material';
+import { Delete, Add, Edit, Share } from '@mui/icons-material';
 
-const CategoryContainer = ({ category, onDelete }) => {
+const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDeleteItem }) => {
+    const dispatch = useDispatch();
+    const items = useSelector((state) => state.items.items);
+    const status = useSelector((state) => state.items.status);
     const [categoryName, setCategoryName] = useState(category.name);
-    const [items, setItems] = useState(category.items);
     const [newItem, setNewItem] = useState({ name: '', quantity: 1, notes: '' });
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
-    const [editingIndex, setEditingIndex] = useState(null);
+    const [editingItemId, setEditingItemId] = useState(null);
     const [liked, setLiked] = useState(false);
+
+    useEffect(() => {
+        if (status === 'idle') {
+            dispatch(fetchItems());
+        }
+    }, [status, dispatch]);
 
     const handleCategoryNameChange = (e) => {
         setCategoryName(e.target.value);
@@ -23,7 +32,7 @@ const CategoryContainer = ({ category, onDelete }) => {
     const handleFormClose = () => {
         setIsFormOpen(false);
         setIsEditMode(false);
-        setEditingIndex(null);
+        setEditingItemId(null);
     };
 
     const handleInputChange = (e) => {
@@ -36,29 +45,30 @@ const CategoryContainer = ({ category, onDelete }) => {
 
     const handleAddItem = () => {
         if (newItem.name.trim() !== '') {
-            if (isEditMode && editingIndex !== null) {
+            if (isEditMode && editingItemId) {
                 // Update existing item
-                const updatedItems = [...items];
-                updatedItems[editingIndex] = newItem;
-                setItems(updatedItems);
+                dispatch(updateItem({ ...newItem, id: editingItemId }));
+                onUpdateItem(category.id, { ...newItem, id: editingItemId });
             } else {
                 // Add new item
-                setItems([...items, newItem]);
+                dispatch(addItem({ ...newItem, categoryId: category.id }));
+                onAddItem(category.id, { ...newItem, id: Date.now() }); // Simulate server ID for newly added item
             }
             setNewItem({ name: '', quantity: 1, notes: '' });
             handleFormClose();
         }
     };
 
-    const handleEditItem = (index) => {
-        setNewItem(items[index]);
+    const handleEditItem = (item) => {
+        setNewItem(item);
         setIsEditMode(true);
-        setEditingIndex(index);
+        setEditingItemId(item.id);
         setIsFormOpen(true);
     };
 
-    const handleDeleteItem = (index) => {
-        setItems(items.filter((_, i) => i !== index));
+    const handleDeleteItem = (id) => {
+        dispatch(deleteItem(id));
+        onDeleteItem(category.id, id);
     };
 
     const handleShareItem = (item) => {
@@ -81,42 +91,45 @@ const CategoryContainer = ({ category, onDelete }) => {
                                 onChange={handleCategoryNameChange}
                                 variant="outlined"
                                 size="small"
+                                aria-label="Category name"
                             />
                             <IconButton color="secondary" onClick={onDelete}>
                                 <Delete />
                             </IconButton>
                         </div>
                         <IconButton color={liked ? "primary" : "default"} onClick={toggleLike}>
-                            {liked ? <Favorite /> : <FavoriteBorder />}
+                            <Share />
                         </IconButton>
                     </div>
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
                         Manage your items:
                     </Typography>
                     <List>
-                        {items.map((item, index) => (
-                            <ListItem
-                                key={index}
-                                secondaryAction={
-                                    <>
-                                        <IconButton color="primary" onClick={() => handleEditItem(index)}>
-                                            <Edit />
-                                        </IconButton>
-                                        <IconButton color="primary" onClick={() => handleShareItem(item)}>
-                                            <Share />
-                                        </IconButton>
-                                        <IconButton edge="end" color="secondary" onClick={() => handleDeleteItem(index)}>
-                                            <Delete />
-                                        </IconButton>
-                                    </>
-                                }
-                            >
-                                <ListItemText 
-                                  primary={`${item.name} (x${item.quantity})`} 
-                                  secondary={item.notes && `Notes: ${item.notes}`}
-                                />
-                            </ListItem>
-                        ))}
+                        {items
+                            .filter(item => item.categoryId === category.id)
+                            .map((item) => (
+                                <ListItem
+                                    key={item.id}
+                                    secondaryAction={
+                                        <>
+                                            <IconButton color="primary" onClick={() => handleEditItem(item)}>
+                                                <Edit />
+                                            </IconButton>
+                                            <IconButton color="primary" onClick={() => handleShareItem(item)}>
+                                                <Share />
+                                            </IconButton>
+                                            <IconButton edge="end" color="secondary" onClick={() => handleDeleteItem(item.id)}>
+                                                <Delete />
+                                            </IconButton>
+                                        </>
+                                    }
+                                >
+                                    <ListItemText 
+                                      primary={`${item.name} (x${item.quantity})`} 
+                                      secondary={item.notes && `Notes: ${item.notes}`}
+                                    />
+                                </ListItem>
+                            ))}
                     </List>
                     <div style={{ display: 'flex', marginTop: '10px' }}>
                         <IconButton color="primary" onClick={handleFormOpen}>
@@ -127,8 +140,8 @@ const CategoryContainer = ({ category, onDelete }) => {
             </Card>
 
             {/* Dialog Form */}
-            <Dialog open={isFormOpen} onClose={handleFormClose}>
-                <DialogTitle>{isEditMode ? "Edit Shopping Item" : "Add Shopping Item"}</DialogTitle>
+            <Dialog open={isFormOpen} onClose={handleFormClose} aria-labelledby="dialog-title">
+                <DialogTitle id="dialog-title">{isEditMode ? "Edit Shopping Item" : "Add Shopping Item"}</DialogTitle>
                 <DialogContent>
                     <TextField
                         margin="dense"
@@ -137,6 +150,7 @@ const CategoryContainer = ({ category, onDelete }) => {
                         value={newItem.name}
                         onChange={handleInputChange}
                         fullWidth
+                        aria-label="Item name"
                     />
                     <TextField
                         margin="dense"
@@ -146,6 +160,7 @@ const CategoryContainer = ({ category, onDelete }) => {
                         value={newItem.quantity}
                         onChange={handleInputChange}
                         fullWidth
+                        aria-label="Item quantity"
                     />
                     <TextField
                         margin="dense"
@@ -156,6 +171,7 @@ const CategoryContainer = ({ category, onDelete }) => {
                         multiline
                         rows={3}
                         fullWidth
+                        aria-label="Item notes"
                     />
                 </DialogContent>
                 <DialogActions>
@@ -172,4 +188,3 @@ const CategoryContainer = ({ category, onDelete }) => {
 };
 
 export default CategoryContainer;
-

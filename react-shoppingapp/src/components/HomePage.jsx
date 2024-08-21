@@ -1,9 +1,8 @@
-// src/components/HomePage.js
 import React, { useState } from 'react';
 import "../components/styles/HomePage.css";
 import NavbarHome from './Navbar-Home';
 import SearchBar from "./mini-searchbar";
-import CategoryContainer from './Categorycontainer';
+import CategoryContainer from './CategoryContainer'; 
 import { Button } from '@mui/material';
 
 const HomePage = () => {
@@ -15,6 +14,32 @@ const HomePage = () => {
 
     const handleDeleteCategory = (id) => {
         setCategories(categories.filter(category => category.id !== id));
+    };
+
+    const handleAddItemToCategory = (categoryId, item) => {
+        setCategories(categories.map(category =>
+            category.id === categoryId
+                ? { ...category, items: [...category.items, item] }
+                : category
+        ));
+    };
+
+    const handleUpdateItemInCategory = (categoryId, updatedItem) => {
+        setCategories(categories.map(category =>
+            category.id === categoryId
+                ? { ...category, items: category.items.map(item =>
+                    item.id === updatedItem.id ? updatedItem : item
+                )}
+                : category
+        ));
+    };
+
+    const handleDeleteItemInCategory = (categoryId, itemId) => {
+        setCategories(categories.map(category =>
+            category.id === categoryId
+                ? { ...category, items: category.items.filter(item => item.id !== itemId) }
+                : category
+        ));
     };
 
     return (
@@ -40,6 +65,9 @@ const HomePage = () => {
                         key={category.id}
                         category={category}
                         onDelete={() => handleDeleteCategory(category.id)}
+                        onAddItem={handleAddItemToCategory}
+                        onUpdateItem={handleUpdateItemInCategory}
+                        onDeleteItem={handleDeleteItemInCategory}
                     />
                 ))}
             </div>
@@ -48,3 +76,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
