@@ -89,16 +89,17 @@ const PopupForm = () => {
       if (user) {
         console.log('Login successful:', user);
         setTimeout(() => {
+          setLoading(false); // Hide loader before navigating
           navigate('/HomePage');
         }, 500); // Delay to show loader
       } else {
         alert('Invalid username or password');
+        setLoading(false); // Hide loader if login fails
       }
     } catch (error) {
       console.error('Error logging in:', error);
       alert('Login failed. Please try again.');
-    } finally {
-      setLoading(false); // Hide loader
+      setLoading(false); // Hide loader on error
     }
   };
 
@@ -139,8 +140,7 @@ const PopupForm = () => {
 
   return (
     <>
-      {loading && 
-       <Loader />} 
+      {loading && <Loader />} 
       <PopupOverlay>
         <PopupFormContainer isFlipped={isFlipped}>
           <PopupFormInner>
@@ -168,8 +168,14 @@ const PopupForm = () => {
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                 />
-                <Button variant="contained" color="primary" fullWidth onClick={handleLogin}>
-                  Login
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  fullWidth 
+                  onClick={handleLogin}
+                  disabled={loading} // Disable button when loading
+                >
+                  {loading ? 'Loading...' : 'Login'}
                 </Button>
                 <Typography
                   variant="body2"

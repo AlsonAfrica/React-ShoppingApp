@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchItems, addItem, updateItem, deleteItem } from '../store/itemsSlice';
 import { Card, CardContent, Typography, IconButton, TextField, Button, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { Delete, Add, Edit, Share, Save } from '@mui/icons-material';
-import jsPDF from 'jspdf'; // Import jsPDF
-import { saveAs } from 'file-saver'; // Import file-saver for saving files
+import jsPDF from 'jspdf';
+import { saveAs } from 'file-saver';
 
 const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDeleteItem, onSaveCategoryName }) => {
     const dispatch = useDispatch();
@@ -61,7 +61,7 @@ const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDele
             } else {
                 // Add new item
                 dispatch(addItem({ ...newItem, categoryId: category.id }));
-                onAddItem(category.id, { ...newItem, id: Date.now() }); // Simulate server ID for newly added item
+                onAddItem(category.id, { ...newItem, id: Date.now() });
             }
             setNewItem({ name: '', quantity: 1, notes: '' });
             handleFormClose();
@@ -129,7 +129,7 @@ const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDele
                             </IconButton>
                         </div>
                         <IconButton color={liked ? "primary" : "default"} onClick={toggleLike}>
-                            <Share />
+                           
                         </IconButton>
                         <IconButton color="primary" onClick={handleShareCategory}>
                             <Share />
@@ -150,7 +150,7 @@ const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDele
                                                 <Edit />
                                             </IconButton>
                                             <IconButton color="primary" onClick={() => handleShareItem(item)}>
-                                                <Share />
+                                                {/* <Share /> */}
                                             </IconButton>
                                             <IconButton edge="end" color="secondary" onClick={() => handleDeleteItem(item.id)}>
                                                 <Delete />
