@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchItems, addItem, updateItem, deleteItem } from '../store/itemsSlice';
 import { Card, CardContent, Typography, IconButton, TextField, Button, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { Delete, Add, Edit, Share } from '@mui/icons-material';
+import { Delete, Add, Edit, Share, Save } from '@mui/icons-material';
+import jsPDF from 'jspdf'; // Import jsPDF
+import { saveAs } from 'file-saver'; // Import file-saver for saving files
 
-const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDeleteItem }) => {
+const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDeleteItem, onSaveCategoryName }) => {
     const dispatch = useDispatch();
     const items = useSelector((state) => state.items.items);
     const status = useSelector((state) => state.items.status);
@@ -14,6 +16,7 @@ const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDele
     const [isEditMode, setIsEditMode] = useState(false);
     const [editingItemId, setEditingItemId] = useState(null);
     const [liked, setLiked] = useState(false);
+    const [shareLink, setShareLink] = useState('');
 
     useEffect(() => {
         if (status === 'idle') {
@@ -23,6 +26,12 @@ const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDele
 
     const handleCategoryNameChange = (e) => {
         setCategoryName(e.target.value);
+    };
+
+    const handleSaveCategoryName = () => {
+        if (onSaveCategoryName && categoryName.trim() !== '') {
+            onSaveCategoryName(category.id, categoryName);
+        }
     };
 
     const handleFormOpen = () => {
@@ -71,9 +80,28 @@ const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDele
         onDeleteItem(category.id, id);
     };
 
-    const handleShareItem = (item) => {
-        // Implement share functionality here
-        console.log(`Sharing item: ${item.name}`);
+    const handleShareCategory = () => {
+        // Generate document
+        const doc = new jsPDF();
+        doc.setFontSize(18);
+        doc.text(`Category: ${categoryName}`, 10, 10);
+        doc.setFontSize(12);
+        items
+            .filter(item => item.categoryId === category.id)
+            .forEach((item, index) => {
+                doc.text(`${index + 1}. ${item.name} (x${item.quantity})`, 10, 20 + (index * 10));
+                if (item.notes) {
+                    doc.text(`   Notes: ${item.notes}`, 10, 25 + (index * 10));
+                }
+            });
+        
+        // Save as blob and create shareable link
+        const blob = doc.output('blob');
+        saveAs(blob, `${categoryName}.pdf`); // This will save the file locally
+
+        // For email sharing, you can use a mailto link
+        const mailtoLink = `mailto:?subject=Shared Category Document&body=Please find the attached document for category: ${categoryName}.`;
+        window.open(mailtoLink);
     };
 
     const toggleLike = () => {
@@ -93,11 +121,17 @@ const CategoryContainer = ({ category, onDelete, onAddItem, onUpdateItem, onDele
                                 size="small"
                                 aria-label="Category name"
                             />
+                            <IconButton color="primary" onClick={handleSaveCategoryName}>
+                                <Save />
+                            </IconButton>
                             <IconButton color="secondary" onClick={onDelete}>
                                 <Delete />
                             </IconButton>
                         </div>
                         <IconButton color={liked ? "primary" : "default"} onClick={toggleLike}>
+                            <Share />
+                        </IconButton>
+                        <IconButton color="primary" onClick={handleShareCategory}>
                             <Share />
                         </IconButton>
                     </div>

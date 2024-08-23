@@ -1,15 +1,25 @@
+// HomePage.js
 import React, { useState } from 'react';
 import "../components/styles/HomePage.css";
 import NavbarHome from './Navbar-Home';
 import SearchBar from "./mini-searchbar";
-import CategoryContainer from './CategoryContainer'; 
+import CategoryContainer from './Categorycontainer';
 import { Button } from '@mui/material';
+import SortDropdown from './SortDropDown';
+import Loader from './Loader'; // Import the Loader component
 
 const HomePage = () => {
     const [categories, setCategories] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [sortOption, setSortOption] = useState('alphabetical');
+    const [loading, setLoading] = useState(false); // Loading state
 
     const handleAddCategory = () => {
-        setCategories([...categories, { id: Date.now(), name: 'New Category', items: [] }]);
+        setLoading(true); // Show loader
+        setTimeout(() => {
+            setCategories([...categories, { id: Date.now(), name: 'New Category', items: [] }]);
+            setLoading(false); // Hide loader after adding category
+        }, 500); // Simulate network delay
     };
 
     const handleDeleteCategory = (id) => {
@@ -42,6 +52,36 @@ const HomePage = () => {
         ));
     };
 
+    const handleSearch = (query) => {
+        setSearchQuery(query.toLowerCase());
+    };
+
+    const handleSortChange = (option) => {
+        setSortOption(option);
+    };
+
+    // Sort function
+    const sortCategories = (categories, option) => {
+        return [...categories].sort((a, b) => {
+            if (option === 'alphabetical') {
+                return a.name.localeCompare(b.name);
+            } else if (option === 'reverseAlphabetical') {
+                return b.name.localeCompare(a.name);
+            } else {
+                return 0;
+            }
+        });
+    };
+
+    const filteredCategories = categories.filter(category =>
+        category.name.toLowerCase().includes(searchQuery) ||
+        category.items.some(item =>
+            item.name.toLowerCase().includes(searchQuery)
+        )
+    );
+
+    const sortedCategories = sortCategories(filteredCategories, sortOption);
+
     return (
         <div className="wrapper2">
             <div><NavbarHome /></div>
@@ -52,15 +92,17 @@ const HomePage = () => {
                 </div>
                 <div className="btn-search">
                     <div className="home-button">
-                        <Button variant="contained" onClick={handleAddCategory}>
+                        <Button variant="contained" onClick={handleAddCategory} disabled={loading}>
                             Add Category
                         </Button>
                     </div>
-                    <div className="search-bar"><SearchBar /></div>
+                    <div className="search-bar"><SearchBar onSearch={handleSearch} /></div>
+                    <div className="Sort"><SortDropdown sortOption={sortOption} onSortChange={handleSortChange} /></div>
                 </div>
             </div>
+            {loading && <Loader />} {/* Show loader */}
             <div className="lists">
-                {categories.map(category => (
+                {sortedCategories.map(category => (
                     <CategoryContainer
                         key={category.id}
                         category={category}
@@ -76,4 +118,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-

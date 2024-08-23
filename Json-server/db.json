@@ -4,7 +4,8 @@
       "username": "Jane",
       "email": "nhlakaniphoradebe337@gmail.com",
       "password": "123",
-      "confirmPassword": "123"
+      "confirmPassword": "123",
+      "id": "a76a"
     },
     {
       "id": "5e40",
@@ -19,14 +20,14 @@
       "password": "123"
     },
     {
-      "id": 1724153314227,
+      "id": "1724153314227",
       "itemName": "12",
       "quantity": 1,
       "notes": "123",
       "containerId": 1
     },
     {
-      "id": 1724153373124,
+      "id": "1724153373124",
       "itemName": "Mango",
       "quantity": 4,
       "notes": "Please Buy",
@@ -40,7 +41,9 @@
     }
   ],
   "items": [
-    {},
+    {
+      "id": "8600"
+    },
     {
       "id": "df8a",
       "name": "mango",
@@ -101,6 +104,111 @@
       "quantity": 1,
       "notes": "buy more",
       "categoryId": 1724232470424
+    },
+    {
+      "id": "1cfe",
+      "name": "meat",
+      "quantity": 1,
+      "notes": "buy more",
+      "categoryId": 1724372569144
+    },
+    {
+      "id": "bb11",
+      "name": "meat",
+      "quantity": 1,
+      "notes": "buy more",
+      "categoryId": 1724373736952
+    },
+    {
+      "id": "5ae2",
+      "name": "banana",
+      "quantity": 1,
+      "notes": "buy less",
+      "categoryId": 1724373742943
+    },
+    {
+      "id": "ec6b",
+      "name": "Chicken",
+      "quantity": 1,
+      "notes": "buy less",
+      "categoryId": 1724374663514
+    },
+    {
+      "id": "b0d2",
+      "name": "Snacks",
+      "quantity": 1,
+      "notes": "buy less",
+      "categoryId": 1724374666874
+    },
+    {
+      "id": "bf8d",
+      "name": "Apple",
+      "quantity": 1,
+      "notes": "buy more",
+      "categoryId": 1724374667570
+    },
+    {
+      "id": "2b43",
+      "name": "Mango",
+      "quantity": 1,
+      "notes": "buy more",
+      "categoryId": 1724374663514
+    },
+    {
+      "id": "12ef",
+      "name": "Apple",
+      "quantity": 1,
+      "notes": "buy less",
+      "categoryId": 1724374902770
+    },
+    {
+      "id": "ca5b",
+      "name": "Banana",
+      "quantity": 1,
+      "notes": "123",
+      "categoryId": 1724374903713
+    },
+    {
+      "id": "3854",
+      "name": "Carrots",
+      "quantity": 1,
+      "notes": "buy less",
+      "categoryId": 1724374904136
+    },
+    {
+      "id": "e42c",
+      "name": "banana",
+      "quantity": 1,
+      "notes": "123",
+      "categoryId": 1724375207975
+    },
+    {
+      "id": "5da2",
+      "name": "Apple",
+      "quantity": 1,
+      "notes": "123",
+      "categoryId": 1724375208440
+    },
+    {
+      "id": "e67f",
+      "name": "orange",
+      "quantity": 1,
+      "notes": "1243",
+      "categoryId": 1724375208887
+    },
+    {
+      "id": "d517",
+      "name": "Lillian",
+      "quantity": 1,
+      "notes": "less",
+      "categoryId": 1724377870110
+    },
+    {
+      "id": "7735",
+      "name": "Chicken",
+      "quantity": 1,
+      "notes": "buy more",
+      "categoryId": 1724378677861
     }
   ]
 }

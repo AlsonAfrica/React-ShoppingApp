@@ -1,3 +1,4 @@
+// mini-searchbar.js
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -22,12 +23,17 @@ const MiniSearchBar = styled(TextField)(({ theme }) => ({
   },
 }));
 
-export default function SearchBar() {
+export default function SearchBar({ onSearch }) {
+  const handleSearchChange = (event) => {
+    onSearch(event.target.value);
+  };
+
   return (
     <MiniSearchBar
       variant="outlined"
       placeholder="Search..."
       size="small"
+      onChange={handleSearchChange}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
