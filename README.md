@@ -18,6 +18,10 @@ The Shopping List App is a web-based application designed to help users manage a
 * Vite: Build tool for front-end development, providing a faster development experience.
 * JavaScript: Core programming language for app functionality.
 
+## Interphase 
+![image](https://github.com/user-attachments/assets/7332de0c-e7b7-41af-9d21-9fa0fa704b44)
+
+
 # Installation
 To set up the Shopping List App locally, follow these steps:
 
